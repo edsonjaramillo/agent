@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "jsx-a11y", "node", "oxc", "promise", "typescript", "unicorn"],
+  "categories": {
+    "correctness": "error",
+    "pedantic": "error",
+    "suspicious": "error"
+  },
+  "rules": {
+    "import/max-dependencies": "off",
+    "max-lines": "off",
+    "max-lines-per-function": "off",
+    "typescript/prefer-readonly-parameter-types": "off"
+  }
+}

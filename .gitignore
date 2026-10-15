@@ -1,0 +1,12 @@
+# general
+logs
+models-store.json
+
+# extensions
+node_modules
+npm
+
+# private
+auth.json
+sessions
+trust.json

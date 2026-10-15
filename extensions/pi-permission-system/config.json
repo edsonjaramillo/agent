@@ -1,0 +1,27 @@
+{
+  "permission": {
+    "*": "allow",
+    "path": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
+    },
+    "bash": {
+      "*": "allow",
+      "rm *": "ask",
+      "rm -rf *": "deny",
+      "sudo *": "ask"
+    },
+    "external_directory": {
+      "*": "ask",
+      "/private/tmp/*": "allow",
+      "/private/var/*": "allow",
+      "/tmp/*": "allow",
+      "/var/*": "allow",
+      "~/.config/bond/skills/*": "allow",
+      "~/.config/system-packages/node_modules/@earendil-works/pi-coding-agent/*": "allow",
+      "~/go/pkg/mod/*": "allow"
+    }
+  }
+}
