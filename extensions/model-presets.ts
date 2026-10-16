@@ -3,6 +3,11 @@ import type { ExtensionAPI, ExtensionCommandContext } from "@earendil-works/pi-c
 const MODEL_PROVIDER = "anthropic";
 
 const MODEL_PRESETS = {
+  normal: {
+    modelId: "claude-opus-5-5",
+    thinkingLevel: "medium",
+    description: "Use Opus with normal thinking",
+  },
   smart: {
     modelId: "claude-opus-5-5",
     thinkingLevel: "high",
