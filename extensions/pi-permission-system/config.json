@@ -21,6 +21,8 @@
       "/var/*": "allow",
       "~/.config/bond/skills/*": "allow",
       "~/.config/system-packages/node_modules/@earendil-works/pi-coding-agent/*": "allow",
+      "~/.local/share/nvim/*": "allow",
+      "~/.local/state/nvim/*": "allow",
       "~/go/pkg/mod/*": "allow"
     }
   }
