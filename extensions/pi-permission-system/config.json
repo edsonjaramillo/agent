@@ -15,11 +15,13 @@
     },
     "external_directory": {
       "*": "ask",
+      "/nix/store/*": "allow",
       "/private/tmp/*": "allow",
       "/private/var/*": "allow",
       "/tmp/*": "allow",
       "/var/*": "allow",
       "~/.config/bond/skills/*": "allow",
+      "~/.config/nvim/*": "allow",
       "~/.config/system-packages/node_modules/@earendil-works/pi-coding-agent/*": "allow",
       "~/.local/share/nvim/*": "allow",
       "~/.local/state/nvim/*": "allow",
