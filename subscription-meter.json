@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "enabledProviders": ["anthropic", "openrouter"],
+  "displayMode": "used",
+  "resetTimeDisplayMode": "relative",
+  "showThresholdNotches": true,
+  "showNowNotch": true
+}

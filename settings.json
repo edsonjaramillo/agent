@@ -5,7 +5,8 @@
     "npm:@gotgenes/pi-permission-system",
     "npm:@juicesharp/rpiv-web-tools",
     "npm:@tintinweb/pi-subagents",
-    "npm:@gotgenes/pi-anthropic-auth"
+    "npm:@gotgenes/pi-anthropic-auth",
+    "npm:pi-subscription-meter"
   ],
   "defaultThinkingLevel": "medium",
   "defaultProvider": "anthropic",
