@@ -14,9 +14,14 @@ const MODEL_PRESETS = {
     description: "Use Opus with high thinking",
   },
   effecient: {
-    modelId: "claude-sonnet-4-5",
+    modelId: "claude-sonnet-5-5",
     thinkingLevel: "high",
     description: "Use Sonnet with high thinking",
+  },
+  cheap: {
+    modelId: "claude-haiku-5-5",
+    thinkingLevel: "high",
+    description: "Use Haiku with high thinking",
   },
 } as const;
 
@@ -53,7 +58,7 @@ async function applyModelPreset(
 }
 
 export default function modelPresetsExtension(pi: ExtensionAPI): void {
-  pi.registerCommand("mode", {
+  pi.registerCommand("preset", {
     description: "Switch between model presets",
     getArgumentCompletions: (argumentPrefix) =>
       MODEL_PRESET_NAMES.filter((name) => name.startsWith(argumentPrefix)).map((name) => ({
