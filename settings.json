@@ -1,5 +1,6 @@
 {
-  "lastChangelogVersion": "1.4.0",
+  "$schema": "./node_modules/@earendil-works/pi-coding-agent/schemas/settings.schema.json",
+  "lastChangelogVersion": "1.5.0",
   "theme": "dark",
   "packages": [
     "npm:@gotgenes/pi-permission-system",
@@ -16,5 +17,8 @@
     "anthropic/claude-sonnet-5-5",
     "anthropic/claude-haiku-5-5",
     "openai-codex/gpt-6.1-sol"
-  ]
+  ],
+  "warnings": {
+    "anthropicExtraUsage": false
+  }
 }
