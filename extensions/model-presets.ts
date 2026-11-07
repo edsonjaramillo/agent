@@ -1,79 +1,65 @@
-import type { ExtensionAPI, ExtensionCommandContext } from "@earendil-works/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
-const MODEL_PROVIDER = "anthropic";
+/**
+ * Slash commands that switch model + thinking level in one step.
+ * Add a preset by adding a row; the command, description and behavior follow.
+ */
 
-const MODEL_PRESETS = {
-  normal: {
-    modelId: "claude-opus-5-5",
-    thinkingLevel: "medium",
-    description: "Use Opus with normal thinking",
-  },
-  smart: {
-    modelId: "claude-opus-5-5",
-    thinkingLevel: "high",
-    description: "Use Opus with high thinking",
-  },
-  effecient: {
-    modelId: "claude-sonnet-5-5",
-    thinkingLevel: "high",
-    description: "Use Sonnet with high thinking",
-  },
-  cheap: {
-    modelId: "claude-haiku-5-5",
-    thinkingLevel: "high",
-    description: "Use Haiku with high thinking",
-  },
-} as const;
+type ThinkingLevel = Parameters<ExtensionAPI["setThinkingLevel"]>[0];
 
-type ModelPresetName = keyof typeof MODEL_PRESETS;
-type ModelPreset = (typeof MODEL_PRESETS)[ModelPresetName];
-
-function isModelPresetName(name: string): name is ModelPresetName {
-  return Object.hasOwn(MODEL_PRESETS, name);
+interface Preset {
+  command: string;
+  provider: string;
+  model: string;
+  label: string;
+  thinking: ThinkingLevel;
 }
 
-const MODEL_PRESET_NAMES = Object.keys(MODEL_PRESETS).filter((name) => isModelPresetName(name));
-
-async function applyModelPreset(
-  pi: ExtensionAPI,
-  preset: ModelPreset,
-  ctx: ExtensionCommandContext,
-): Promise<void> {
-  const model = ctx.modelRegistry.find(MODEL_PROVIDER, preset.modelId);
-  if (!model) {
-    ctx.ui.notify(`Model ${MODEL_PROVIDER}/${preset.modelId} is not available.`, "error");
-    return;
-  }
-
-  const modelSelected = await pi.setModel(model);
-  if (!modelSelected) {
-    ctx.ui.notify(
-      `Could not activate ${MODEL_PROVIDER}/${preset.modelId}. Check your API credentials.`,
-      "error",
-    );
-    return;
-  }
-
-  pi.setThinkingLevel(preset.thinkingLevel);
-}
+const PRESETS = [
+  {
+    command: "smart",
+    provider: "anthropic",
+    model: "claude-opus-5-5",
+    label: "Opus",
+    thinking: "medium",
+  },
+  {
+    command: "everyday",
+    provider: "anthropic",
+    model: "claude-sonnet-5-5",
+    label: "Sonnet",
+    thinking: "medium",
+  },
+  {
+    command: "cheap",
+    provider: "anthropic",
+    model: "claude-haiku-5-5",
+    label: "Haiku",
+    thinking: "medium",
+  },
+] satisfies Preset[];
 
 export default function modelPresetsExtension(pi: ExtensionAPI): void {
-  pi.registerCommand("preset", {
-    description: "Switch between model presets",
-    getArgumentCompletions: (argumentPrefix) =>
-      MODEL_PRESET_NAMES.filter((name) => name.startsWith(argumentPrefix)).map((name) => ({
-        label: name,
-        value: name,
-      })),
-    handler: async (args, ctx) => {
-      const mode = args.trim().split(/\s+/u)[0] ?? "";
+  for (const preset of PRESETS) {
+    pi.registerCommand(preset.command, {
+      description: `Use ${preset.label} with ${preset.thinking} thinking`,
+      handler: async (_args, ctx) => {
+        const id = `${preset.provider}/${preset.model}`;
 
-      if (!isModelPresetName(mode)) {
-        ctx.ui.notify(`Choose a mode: ${MODEL_PRESET_NAMES.join(", ")}.`, "warning");
-        return;
-      }
+        const model = ctx.modelRegistry.find(preset.provider, preset.model);
+        if (!model) {
+          ctx.ui.notify(`Model ${id} is not available.`, "error");
+          return;
+        }
 
-      await applyModelPreset(pi, MODEL_PRESETS[mode], ctx);
-    },
-  });
+        if (!(await pi.setModel(model))) {
+          ctx.ui.notify(`Could not activate ${id}. Check your API credentials.`, "error");
+          return;
+        }
+
+        pi.setThinkingLevel(preset.thinking);
+        ctx.ui.notify(`/${preset.command}: ${preset.label}, ${preset.thinking} thinking`, "info");
+      },
+    });
+  }
 }
