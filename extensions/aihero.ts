@@ -62,7 +62,8 @@ export default function aiHeroExtension(pi: ExtensionAPI): void {
       }
 
       if (skillsToAdd.length > 0) {
-        const addResult = await pi.exec("bond", ["skills", "add", ...skillsToAdd]);
+        const addResult = await pi.exec("bond", ["skills", "add", ...skillsToAdd, "--copy"]);
+
         if (addResult.code !== 0) {
           ctx.ui.notify(addResult.stderr, "error");
           return;
