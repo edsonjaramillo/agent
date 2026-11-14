@@ -1,31 +1,58 @@
 {
+  "$schema": "../../npm/node_modules/@gotgenes/pi-permission-system/schemas/permissions.schema.json",
+  "doublePressToConfirm": false,
+  "promptNotifications": ["osc9"],
+  "promptTimeoutMs": 300000,
   "permission": {
     "*": "allow",
     "path": {
       "*": "allow",
       "*.env": "deny",
       "*.env.*": "deny",
-      "*.env.example": "allow"
+      "*.env.example": "allow",
+      "*.pem": "deny",
+      "*/.pi/agent/auth.json": "deny",
+      "~/.aws/*": "deny",
+      "~/.config/gh/hosts.yml": "deny",
+      "~/.gnupg/*": "deny",
+      "~/.ssh/*": "deny"
     },
     "bash": {
       "*": "allow",
       "rm *": "ask",
-      "rm -rf *": "deny",
-      "sudo *": "ask"
+      "rm -rf *": "ask",
+      "rm -rf /*": { "action": "deny", "reason": "Never delete from root" },
+      "rm -rf ~*": { "action": "deny", "reason": "Never delete in $HOME" },
+      "sudo *": "ask",
+      "git push --force*": "ask",
+      "git reset --hard*": "ask",
+      "git clean *": "ask"
     },
     "external_directory_read": {
       "*": "ask",
-      "/nix/store/*": "allow",
+      "/etc/*": "allow",
+      "/nix/*": "allow",
+      "/private/tmp": "allow",
       "/private/tmp/*": "allow",
-      "/private/var/*": "allow",
+      "/private/var/folders/*": "allow",
+      "/tmp": "allow",
       "/tmp/*": "allow",
-      "/var/*": "allow",
-      "~/.config/bond/skills/*": "allow",
-      "~/.config/nvim/*": "allow",
-      "~/.config/system-packages/node_modules/@earendil-works/pi-coding-agent/*": "allow",
-      "~/.local/share/nvim/*": "allow",
-      "~/.local/state/nvim/*": "allow",
+      "/var/folders/*": "allow",
+      "~": "allow",
+      "~/.config/*": "allow",
+      "~/.local/*": "allow",
+      "~/.zprofile": "allow",
+      "~/.zshrc": "allow",
       "~/go/pkg/mod/*": "allow"
+    },
+    "external_directory_write": {
+      "*": "ask",
+      "/private/tmp": "allow",
+      "/tmp": "allow",
+      "/private/tmp/*": "allow",
+      "/tmp/*": "allow",
+      "/private/var/folders/*": "allow",
+      "/var/folders/*": "allow"
     }
   }
 }
