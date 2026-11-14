@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/@earendil-works/pi-coding-agent/schemas/settings.schema.json",
-  "lastChangelogVersion": "1.5.0",
+  "lastChangelogVersion": "99.99.99",
+  "collapseChangelog": true,
   "theme": "dark",
   "packages": [
     "npm:@gotgenes/pi-permission-system",
@@ -21,8 +22,8 @@
     "anthropicExtraUsage": false
   },
   "extensionChangelogVersions": {
-    "{\"source\":\"npm:@gotgenes/pi-permission-system\",\"scope\":\"user\"}": "42.0.0",
-    "{\"source\":\"npm:@tintinweb/pi-subagents\",\"scope\":\"user\"}": "0.23.1",
-    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.4.4"
+    "{\"source\":\"npm:@gotgenes/pi-permission-system\",\"scope\":\"user\"}": "99.99.99",
+    "{\"source\":\"npm:@tintinweb/pi-subagents\",\"scope\":\"user\"}": "99.99.0",
+    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "99.99.99"
   }
 }
